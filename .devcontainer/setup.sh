@@ -2,7 +2,7 @@
 set -e
 
 echo "=========================================="
-echo "🚀 BEAST MODE: Setting up OpenCode..."
+echo "🚀 Setting up OpenCode..."
 echo "=========================================="
 
 # Check for Node.js
@@ -16,20 +16,10 @@ else
     echo "   node version: $(node --version)"
 fi
 
-# Create opencode wrapper in user's home directory (writable by vscode)
-echo "📦 Creating opencode wrapper in home directory..."
-mkdir -p /home/vscode/bin
-
-# Create wrapper script that uses npx
-cat > /home/vscode/bin/opencode << 'EOF'
-#!/bin/bash
-npx -y opencode-ai/opencode "$@"
-EOF
-chmod +x /home/vscode/bin/opencode
-
-# Add to PATH for current and future sessions
-export PATH="/home/vscode/bin:$PATH"
-echo 'export PATH="/home/vscode/bin:$PATH"' >> /home/vscode/.bashrc
+# Install opencode globally
+echo "📦 Installing opencode-ai..."
+npm install -g opencode-ai@latest
+echo "✅ opencode installed!"
 
 # Create opencode config directory
 mkdir -p ~/.config/opencode
@@ -49,6 +39,6 @@ else
 fi
 
 echo "=========================================="
-echo "🔥 BEAST MODE: READY!"
+echo "🔥 READY!"
 echo "   Run 'opencode' to start coding!"
 echo "=========================================="
