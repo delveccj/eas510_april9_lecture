@@ -7,6 +7,9 @@ echo "Setting up OpenCode environment..."
 echo "Installing opencode via npm..."
 npm install -g opencode-ai/opencode
 
+# Get npm global bin path
+NPM_GLOBAL_BIN=$(npm root -g)/bin
+
 # Create opencode config directory
 mkdir -p ~/.config/opencode
 
@@ -20,6 +23,14 @@ if [ ! -f ~/.config/opencode/opencode.json ]; then
 }
 EOF
 fi
+
+# Add to PATH permanently for future sessions
+if ! grep -q "$NPM_GLOBAL_BIN" ~/.bashrc 2>/dev/null; then
+    echo "export PATH=\"$NPM_GLOBAL_BIN:\$PATH\"" >> ~/.bashrc
+fi
+
+# Add to PATH for current session
+export PATH="$NPM_GLOBAL_BIN:$PATH"
 
 echo "OpenCode setup complete!"
 echo "Run 'opencode' to start."
