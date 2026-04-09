@@ -16,23 +16,20 @@ else
     echo "   node version: $(node --version)"
 fi
 
-# Try to install opencode using npx first (no global install needed!)
-echo "📦 Checking for opencode..."
-if command -v opencode &> /dev/null; then
-    echo "✅ OpenCode already installed!"
-else
-    echo "📦 Trying to install via npx..."
-    # Create a wrapper script that uses npx
-    echo '#!/bin/bash' > /usr/local/bin/opencode
-    echo 'npx -y opencode-ai/opencode "$@"' >> /usr/local/bin/opencode
-    chmod +x /usr/local/bin/opencode
-    echo "✅ OpenCode wrapper created!"
-fi
+# Create opencode wrapper in user's home directory (writable by vscode)
+echo "📦 Creating opencode wrapper in home directory..."
+mkdir -p /home/vscode/bin
 
-# Verify
-echo ""
-echo "📁 Checking opencode..."
-which opencode || echo "   not in PATH"
+# Create wrapper script that uses npx
+cat > /home/vscode/bin/opencode << 'EOF'
+#!/bin/bash
+npx -y opencode-ai/opencode "$@"
+EOF
+chmod +x /home/vscode/bin/opencode
+
+# Add to PATH for current and future sessions
+export PATH="/home/vscode/bin:$PATH"
+echo 'export PATH="/home/vscode/bin:$PATH"' >> /home/vscode/.bashrc
 
 # Create opencode config directory
 mkdir -p ~/.config/opencode
