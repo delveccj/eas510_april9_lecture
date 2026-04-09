@@ -1,40 +1,30 @@
 # OpenCode Development Environment
 
-This is a GitHub Codespaces-ready environment for using OpenCode with the Big Pickle model.
+This is a GitHub Codespaces-ready environment for using OpenCode with Big Pickle.
 
 ## What's Included
 
 - **Python 3.11** - Base development environment
 - **Node.js** - Required for OpenCode
 - **OpenCode** - AI-assisted coding tool
-- **VS Code Python Extension** - For Python development
+- **Big Pickle** - Configured automatically
 
 ## How It Works
 
 1. When the Codespace starts, `postCreateCommand` runs `setup.sh`
 2. The setup script:
-   - Installs Node.js (if needed)
-   - Installs OpenCode via npm (if not already installed)
-   - Creates `~/.config/opencode/opencode.json` with Big Pickle model configuration
+   - Installs OpenCode via npm
+   - Creates `~/.config/opencode/opencode.json` with Big Pickle model
 
 ## Using This with GitHub Codespaces
 
 1. This repo is already set up for Codespaces
 2. Go to GitHub → Codespaces → "Create new codespace"
-3. Select this repository
-4. The container will automatically:
-   - Install Python extension
-   - Install Node.js
-   - Install OpenCode
-   - Configure Big Pickle model
+3. The container will automatically install and configure OpenCode
 
-## Manual Setup (if not using Codespaces)
+## Manual Setup
 
 ```bash
-# Install Node.js
-curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-apt-get install -y nodejs
-
 # Install OpenCode
 npm install -g opencode-ai/opencode
 
@@ -47,8 +37,3 @@ cat > ~/.config/opencode/opencode.json << 'EOF'
 }
 EOF
 ```
-
-## Notes
-
-- The setup is idempotent — it checks if things are already installed before re-running
-- You need an OpenRouter API key for Big Pickle to work (set via environment variable `OPENROUTER_API_KEY`)

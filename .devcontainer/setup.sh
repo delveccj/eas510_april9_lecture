@@ -3,18 +3,9 @@ set -e
 
 echo "Setting up OpenCode environment..."
 
-# Check if Node.js is installed (it should be via features)
-if ! command -v node &> /dev/null; then
-    echo "Installing Node.js..."
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-    apt-get install -y nodejs
-fi
-
-# Install opencode if not already installed
-if ! command -v opencode &> /dev/null; then
-    echo "Installing opencode via npm..."
-    npm install -g opencode-ai/opencode
-fi
+# Install opencode via npm
+echo "Installing opencode via npm..."
+npm install -g opencode-ai/opencode
 
 # Create opencode config directory
 mkdir -p ~/.config/opencode
