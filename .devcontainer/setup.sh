@@ -5,25 +5,34 @@ echo "=========================================="
 echo "🚀 BEAST MODE: Setting up OpenCode..."
 echo "=========================================="
 
-# Check if npm exists, if not install node
-if ! command -v npm &> /dev/null; then
+# Check for Node.js
+if ! command -v node &> /dev/null; then
     echo "📦 Installing Node.js..."
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
     apt-get install -y nodejs
     echo "✅ Node.js installed!"
 else
-    echo "✅ npm found: $(which npm)"
-    echo "   npm version: $(npm --version)"
+    echo "✅ node found: $(which node)"
+    echo "   node version: $(node --version)"
 fi
 
-# Install opencode via npm
-echo "📦 Installing opencode via npm..."
-npm install -g opencode-ai/opencode
-echo "✅ OpenCode installed!"
+# Try to install opencode using npx first (no global install needed!)
+echo "📦 Checking for opencode..."
+if command -v opencode &> /dev/null; then
+    echo "✅ OpenCode already installed!"
+else
+    echo "📦 Trying to install via npx..."
+    # Create a wrapper script that uses npx
+    echo '#!/bin/bash' > /usr/local/bin/opencode
+    echo 'npx -y opencode-ai/opencode "$@"' >> /usr/local/bin/opencode
+    chmod +x /usr/local/bin/opencode
+    echo "✅ OpenCode wrapper created!"
+fi
 
-# Get npm global bin path
-NPM_GLOBAL_BIN=$(npm root -g)/bin
-echo "   NPM global bin: $NPM_GLOBAL_BIN"
+# Verify
+echo ""
+echo "📁 Checking opencode..."
+which opencode || echo "   not in PATH"
 
 # Create opencode config directory
 mkdir -p ~/.config/opencode
@@ -39,35 +48,10 @@ if [ ! -f ~/.config/opencode/opencode.json ]; then
 EOF
     echo "✅ Config created!"
 else
-    echo "✅ Config already exists, skipping..."
+    echo "✅ Config already exists"
 fi
 
-# Add to PATH permanently
-echo "📝 Checking PATH..."
-if ! grep -q "$NPM_GLOBAL_BIN" ~/.bashrc 2>/dev/null; then
-    echo "   Adding npm bin to PATH in ~/.bashrc..."
-    echo "export PATH=\"$NPM_GLOBAL_BIN:\$PATH\"" >> ~/.bashrc
-else
-    echo "   PATH already configured"
-fi
-
-# Add to PATH for current session
-export PATH="$NPM_GLOBAL_BIN:$PATH"
-
-# Show what's in npm global bin
-echo ""
-echo "📁 Contents of npm global bin:"
-ls -la "$NPM_GLOBAL_BIN/"
-
-# Verify
-echo ""
-if command -v opencode &> /dev/null; then
-    echo "=========================================="
-    echo "🔥 BEAST MODE: READY TO CODE!"
-    echo "   Run 'opencode' to start coding!"
-    echo "=========================================="
-else
-    echo "⚠️ Still not in PATH. Trying to find it..."
-    find /usr -name "opencode" -type f 2>/dev/null || true
-    find /usr/local -name "opencode" -type f 2>/dev/null || true
-fi
+echo "=========================================="
+echo "🔥 BEAST MODE: READY!"
+echo "   Run 'opencode' to start coding!"
+echo "=========================================="
