@@ -1,0 +1,15 @@
+INFO  2026-04-25T12:03:26 +1299ms service=server-proxy version=1.14.24 args=[] process_role=main run_id=b29b39a2-8938-4812-a24e-9a52adad6806 opencode
+INFO  2026-04-25T12:03:26 +5ms service=db path=/home/vscode/.local/share/opencode/opencode.db opening database
+INFO  2026-04-25T12:03:26 +156ms service=db count=13 mode=bundled applying migrations
+INFO  2026-04-25T12:03:26 +143ms service=json-migration storage directory does not exist, skipping migration
+INFO  2026-04-25T12:03:31 +5467ms service=server-proxy directory=/workspaces/eas510_april9_lecture creating instance
+INFO  2026-04-25T12:03:31 +9ms service=project directory=/workspaces/eas510_april9_lecture fromDirectory
+INFO  2026-04-25T12:03:32 +143ms service=tui.plugin id=internal:home-footer loading internal tui plugin
+INFO  2026-04-25T12:03:32 +0ms service=tui.plugin id=internal:home-tips loading internal tui plugin
+INFO  2026-04-25T12:03:32 +0ms service=tui.plugin id=internal:sidebar-context loading internal tui plugin
+INFO  2026-04-25T12:03:32 +0ms service=tui.plugin id=internal:sidebar-mcp loading internal tui plugin
+INFO  2026-04-25T12:03:32 +0ms service=tui.plugin id=internal:sidebar-lsp loading internal tui plugin
+INFO  2026-04-25T12:03:32 +0ms service=tui.plugin id=internal:sidebar-todo loading internal tui plugin
+INFO  2026-04-25T12:03:32 +0ms service=tui.plugin id=internal:sidebar-files loading internal tui plugin
+INFO  2026-04-25T12:03:32 +0ms service=tui.plugin id=internal:sidebar-footer loading internal tui plugin
+INFO  2026-04-25T12:03:32 +0ms service=tui.plugin id=internal:plugin-manager loading internal tui plugin

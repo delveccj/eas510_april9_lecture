@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	worktree = /workspaces/eas510_april9_lecture
+	autocrlf = false
+	longpaths = true
+	symlinks = true
+	fsmonitor = false
